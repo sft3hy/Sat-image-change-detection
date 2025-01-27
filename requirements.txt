@@ -1,0 +1,5 @@
+groq==0.15.0
+boto3==1.36.7
+pillow==11.1.0
+schedule==1.2.2
+pytz==2024.2
