@@ -14,9 +14,11 @@ REGION_NAME = "us-east-1"
 PRODUCT = "ABI-L1b-RadC"  # Example: radiance
 SAVE_DIR = ".raw_nc_images/"  # Local directory to save images
 BANDS = ["M6C01", "M6C02", "M6C03"]
+ACCESS_KEY = os.environ.get('AWS_ACCESS_KEY_ID')
+SECRET_KEY = os.environ.get('AWS_SECRET_ACCESS_KEY')
 
 # Initialize the S3 client
-s3 = boto3.client("s3", region_name=REGION_NAME)
+s3 = boto3.client("s3", region_name=REGION_NAME, aws_access_key_id=ACCESS_KEY, aws_secret_access_key=SECRET_KEY,)
 
 def download_from_response(response):
     # print(response['Contents'])
