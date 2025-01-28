@@ -8,7 +8,7 @@ import streamlit as st
 client = Groq()
 
 image_analyst_sys_prompt = """You are an expert satellite imagery analyst. You will be provided a composite satellite image of the Southern West 
-coast of the United States and the Pacific Ocean, where the old image on the left side, and the new image on the right side, divided by a vertical white 
+coast of the United States and the Pacific Ocean, where the one day old image on the left side, and the current image on the right side, divided by a vertical white 
 bar 100 pixels wide, and you will describe the differences between them. You must take into consideration what might be causing the changes (cloud cover, etc.)"""
 
 def encode_image(image_path):

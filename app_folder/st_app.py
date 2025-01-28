@@ -44,18 +44,18 @@ if do_workflow:
     with st.spinner("Converting files to PNG format..."):
         wipe_and_write_new_pngs()
         png_files = [os.path.join("converted_to_pngs", file) for file in os.listdir(png_folder) if os.path.isfile(os.path.join(png_folder, file))]
-col1, col2 = st.columns(2)
-if png_files is not [] and len(png_files) > 1:
-    older = png_files[0]
-    newer = png_files[1]
-    if png_files[0] > png_files[1]:
-        older = png_files[1]
-        newer = png_files[0]
-    with col1:
-        st.image(png_files[-1], caption=f"NOAA GOES-18 image taken at {parse_goes_timestamp(older.split('/')[-1].split('.')[0])} EST")
-    with col2:
-        st.image(png_files[-2], caption=f"NOAA GOES-18 image taken at {parse_goes_timestamp(newer.split('/')[-1].split('.')[0])} EST")
-    with st.spinner("Creating composite image..."):
-        do_the_compositing()
-    st.subheader("Change Detection")
-    analyze_change(model_name=selected_model)
+    col1, col2 = st.columns(2)
+    if png_files is not [] and len(png_files) > 1:
+        older = png_files[0]
+        newer = png_files[1]
+        if png_files[0] > png_files[1]:
+            older = png_files[1]
+            newer = png_files[0]
+        with col1:
+            st.image(png_files[-1], caption=f"NOAA GOES-18 image taken at {parse_goes_timestamp(older.split('/')[-1].split('.')[0])} EST")
+        with col2:
+            st.image(png_files[-2], caption=f"NOAA GOES-18 image taken at {parse_goes_timestamp(newer.split('/')[-1].split('.')[0])} EST")
+        with st.spinner("Creating composite image..."):
+            do_the_compositing()
+        st.subheader("Change Detection")
+        analyze_change(model_name=selected_model)
