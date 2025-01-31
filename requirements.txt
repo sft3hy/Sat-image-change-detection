@@ -1,5 +1,4 @@
-netCDF4==1.6.4
-h5netcdf==1.1.0
+h5netcdf==1.5.0
 groq==0.15.0
 boto3==1.36.7
 pillow==11.1.0

@@ -46,9 +46,9 @@ def save_goes_images_png(band_files, timestamp):
     """
     try:
         # Open datasets for each band
-        ds_c01 = xr.open_dataset(band_files["C01"])  # Blue
-        ds_c02 = xr.open_dataset(band_files["C02"])  # Red
-        ds_c03 = xr.open_dataset(band_files["C03"])  # Green (approximated)
+        ds_c01 = xr.open_dataset(band_files["C01"], engine="h5netcdf")  # Blue
+        ds_c02 = xr.open_dataset(band_files["C02"], engine="h5netcdf")  # Red
+        ds_c03 = xr.open_dataset(band_files["C03"], engine="h5netcdf")  # Green (approximated)
         
         # Extract radiance data
         blue = ds_c01["Rad"].data

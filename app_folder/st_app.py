@@ -9,6 +9,7 @@ import pytz
 
 st.subheader("Compare today's and yesterday's satellite imagery", divider=True)
 
+
 col1, col2, col3 = st.columns(3)
 with col2:
     do_workflow = st.button("Order imagery")

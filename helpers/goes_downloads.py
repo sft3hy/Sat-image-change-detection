@@ -75,6 +75,7 @@ def refresh_images_folder():
         else:
             st.write("No files found for the current time window, trying earlier...")
             s3_prefix = '/'.join(s3_prefix.split('/')[:-1] + [str(int(s3_prefix.split('/')[-1]) - 1)])
+            st.write(f"NEW S3 PREFIX: {s3_prefix}")
             st.write(s3_prefix)
             st.write()
 
