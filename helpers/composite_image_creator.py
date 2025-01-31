@@ -1,12 +1,13 @@
 import os
 from PIL import Image
 import shutil
+import streamlit as st
 
 composite_images_dir = "composite_images"
 SEPARATION_PIXELS = 100
 
 def create_composite_image(image1, image2):
-    print("Creating composite image")
+    st.write("Creating composite image")
 
     if os.path.exists(composite_images_dir):
         if os.path.exists(composite_images_dir):

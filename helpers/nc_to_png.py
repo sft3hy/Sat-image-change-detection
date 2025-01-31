@@ -101,17 +101,17 @@ def save_goes_images_png(band_files, timestamp):
         plt.axis('off')
         plt.savefig(os.path.join(image_dir, filename), bbox_inches='tight', dpi=300, pad_inches=0)
         plt.close()
-        print(f"Wrote file {filename}")
+        st.write(f"Wrote file {filename}")
     
     except Exception as e:
-        print(f"Error rendering image: {e}")
+        st.write(f"Error rendering image: {e}")
 
 raw_nc_images_dir = ".raw_nc_images"
 converted_to_pngs_dir = "converted_to_pngs"
 
 
 def wipe_and_write_new_pngs():
-    print("Writing new nc files to png")
+    st.write("Writing new nc files to png")
     if os.path.exists(converted_to_pngs_dir):
         if os.path.exists(converted_to_pngs_dir):
             shutil.rmtree(converted_to_pngs_dir)
@@ -122,6 +122,6 @@ def wipe_and_write_new_pngs():
     for timestamp, band_files in band_files_by_timestamp.items():
         with st.spinner(f"Converting image {count}/{len(band_files_by_timestamp.items())}"):
             if "C01" in band_files and "C02" in band_files and "C03" in band_files:
-                print(f"Processing timestamp {timestamp}...")
+                st.write(f"Processing timestamp {timestamp}...")
                 save_goes_images_png(band_files, timestamp)
         count += 1

@@ -21,7 +21,7 @@ SECRET_KEY = os.environ.get('AWS_SECRET_ACCESS_KEY')
 s3 = boto3.client("s3", region_name=REGION_NAME, aws_access_key_id=ACCESS_KEY, aws_secret_access_key=SECRET_KEY,)
 
 def download_from_response(response):
-    # print(response['Contents'])
+    # st.write(response['Contents'])
     most_recent_files = {}
 
     for item in response['Contents']:
@@ -35,10 +35,10 @@ def download_from_response(response):
         file_name = file_info['Key'].split("/")[-1]
         local_file_path = f"{SAVE_DIR}{file_name}"
         s3.download_file(BUCKET_NAME, file_info['Key'], local_file_path)    
-        print(f"Downloaded: {local_file_path}")
+        st.write(f"Downloaded: {local_file_path}")
 
 def refresh_images_folder():
-    print("Downloading new nc files from s3")
+    st.write("Downloading new nc files from s3")
     # Wipe the images folder
     if os.path.exists(SAVE_DIR):
         shutil.rmtree(SAVE_DIR)
@@ -62,7 +62,7 @@ def refresh_images_folder():
     # Example file path pattern in the S3 bucket
     s3_prefix = f"{PRODUCT}/{year}/{day_of_year}/{hour}/"
     s3_prefix_yesterday = f"{PRODUCT}/{year_yesterday}/{day_of_year_yesterday}/{hour_yesterday}/"
-    print(s3_prefix)
+    st.write(s3_prefix)
     try:
         # List objects in the S3 bucket for the given prefix
         response = s3.list_objects_v2(Bucket=BUCKET_NAME, Prefix=s3_prefix)
@@ -73,10 +73,10 @@ def refresh_images_folder():
             with st.spinner(f"Downloading yesterday's image"):
                 download_from_response(yesterday_response)
         else:
-            print("No files found for the current time window, trying earlier...")
+            st.write("No files found for the current time window, trying earlier...")
             s3_prefix = '/'.join(s3_prefix.split('/')[:-1] + [str(int(s3_prefix.split('/')[-1]) - 1)])
-            print(s3_prefix)
-            print()
+            st.write(s3_prefix)
+            st.write()
 
             response = s3.list_objects_v2(Bucket=BUCKET_NAME, Prefix=s3_prefix)
             with st.spinner(f"Downloading today's image"):
@@ -84,4 +84,4 @@ def refresh_images_folder():
             with st.spinner(f"Downloading yesterday's image"):
                 download_from_response(yesterday_response)
     except Exception as e:
-        print(f"Error fetching GOES image: {e}")
+        st.write(f"Error fetching GOES image: {e}")
