@@ -28,7 +28,7 @@ def stream_groq(stream):
     return final_response  # Return the full response as a string
 
 def analyze_change(model_name="llama-3.2-11b-vision-preview"):
-    st.write(f"Calling {model_name} to perform change detection")
+    print(f"Calling {model_name} to perform change detection")
     composite_images_folder = "composite_images"
     image_path = os.path.join(composite_images_folder, os.listdir(composite_images_folder)[0])
 
