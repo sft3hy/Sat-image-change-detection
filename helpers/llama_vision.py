@@ -19,10 +19,13 @@ def encode_image(image_path):
 
 
 def stream_groq(stream):
+    final_response = ""
     for chunk in stream:
         text = chunk.choices[0].delta.content
         if text is not None and type(text) != "int":
-            yield text
+            yield text  # Stream the response chunk by chunk
+            final_response += text
+    return final_response  # Return the full response as a string
 
 def analyze_change(model_name="llama-3.2-11b-vision-preview"):
     print(f"Calling {model_name} to perform change detection")
@@ -57,8 +60,9 @@ def analyze_change(model_name="llama-3.2-11b-vision-preview"):
     )
     
     with st.chat_message("ai"):
-        response = st.write_stream(stream_groq(stream))
-    response = stream
-    return response
+        # Collect and write the response in the Streamlit app
+        final_response = st.write_stream(stream_groq(stream))
+    
+    return final_response  # Return the final response
 
 # analyze_change()
