@@ -2,11 +2,13 @@ import streamlit as st
 
 st.markdown("""
 # Satellite Imagery Change Detection Workflow
-
-## Project Overview
-This project enables the detection of changes in satellite imagery using NOAA's GOES-18 data. The workflow involves downloading recent satellite images, processing them into a composite format, and analyzing the differences using a language model. The primary components of the project are designed for real-time, automated imagery processing and analysis.
+## About the developer
+            
+Hey! I'm Sam and I like to make hobby projects like this. Check out my [personal website](https://sft3hy.github.io/sam-townsend). If you have any questions or need help, feel free to email me - smaueltown@gmail.com
 
 ---
+## Project Overview
+This project enables the detection of changes in satellite imagery using NOAA's GOES-18 data. The workflow involves downloading recent satellite images, processing them into a composite format, and analyzing the differences using a language model. The primary components of the project are designed for real-time, automated imagery processing and analysis.
 
 
 ## Key Modules and Functionality

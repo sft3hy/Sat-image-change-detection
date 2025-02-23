@@ -12,7 +12,7 @@ st.subheader("Compare today's and yesterday's satellite imagery", divider=True)
 
 col1, col2, col3 = st.columns(3)
 with col2:
-    do_workflow = st.button("Order imagery")
+    do_workflow = st.button("Order imagery", type="primary")
 
 # Initialize session state variables
 if "png_files" not in st.session_state:
