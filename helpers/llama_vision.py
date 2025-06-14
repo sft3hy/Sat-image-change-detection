@@ -11,11 +11,11 @@ image_analyst_sys_prompt = """You are an expert satellite imagery analyst. You w
 coast of the United States and the Pacific Ocean, where the one day old image on the left side, and the current image on the right side, divided by a vertical white 
 bar 100 pixels wide, and you will describe the differences between them. You must take into consideration what might be causing the changes (cloud cover, etc.)"""
 
+
 def encode_image(image_path):
-  with st.spinner("Encoding image..."):
-    with open(image_path, "rb") as image_file:
-        return base64.b64encode(image_file.read()).decode('utf-8')
-  
+    with st.spinner("Encoding image..."):
+        with open(image_path, "rb") as image_file:
+            return base64.b64encode(image_file.read()).decode("utf-8")
 
 
 def stream_groq(stream):
@@ -27,10 +27,13 @@ def stream_groq(stream):
             final_response += text
     return final_response  # Return the full response as a string
 
-def analyze_change(model_name="llama-3.2-11b-vision-preview"):
+
+def analyze_change(model_name="meta-llama/llama-4-scout-17b-16e-instruct"):
     print(f"Calling {model_name} to perform change detection")
     composite_images_folder = "composite_images"
-    image_path = os.path.join(composite_images_folder, os.listdir(composite_images_folder)[0])
+    image_path = os.path.join(
+        composite_images_folder, os.listdir(composite_images_folder)[0]
+    )
 
     output_path = "composite_images/shrunk.png"
     target_size_bytes = 3900000  # 3.9 MB
@@ -42,27 +45,25 @@ def analyze_change(model_name="llama-3.2-11b-vision-preview"):
             {
                 "role": "user",
                 "content": [
-                    {
-                       "type": "text", "text": image_analyst_sys_prompt
-                    },
+                    {"type": "text", "text": image_analyst_sys_prompt},
                     {
                         "type": "image_url",
-                        "image_url": 
-                        {
+                        "image_url": {
                             "url": f"data:image/jpeg;base64,{encoded_image}",
-                        }
-                    }
-                ]
+                        },
+                    },
+                ],
             }
         ],
         model=model_name,
-        stream=True
+        stream=True,
     )
-    
+
     with st.chat_message("ai"):
         # Collect and write the response in the Streamlit app
         final_response = st.write_stream(stream_groq(stream))
-    
+
     return final_response  # Return the final response
+
 
 # analyze_change()

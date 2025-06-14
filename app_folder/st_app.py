@@ -18,7 +18,7 @@ with col2:
 if "png_files" not in st.session_state:
     st.session_state["png_files"] = []
 if "model_name" not in st.session_state:
-    st.session_state["model_name"] = "llama-3.2-11b-vision-preview"
+    st.session_state["model_name"] = "meta-llama/llama-4-scout-17b-16e-instruct"
 if "change_analysis" not in st.session_state:
     st.session_state["change_analysis"] = ""
 
@@ -26,9 +26,13 @@ if "change_analysis" not in st.session_state:
 with st.sidebar:
     st.session_state["model_name"] = st.selectbox(
         "Vision model for image comparison:",
-        options=["llama-3.2-11b-vision-preview", "llama-3.2-90b-vision-preview"],
+        options=[
+            "meta-llama/llama-4-scout-17b-16e-instruct",
+            "llama-3.2-90b-vision-preview",
+        ],
         index=0,
     )
+
 
 def parse_goes_timestamp(timestamp):
     year = int(timestamp[:4])
@@ -36,11 +40,14 @@ def parse_goes_timestamp(timestamp):
     hour = int(timestamp[7:9])
     minute = int(timestamp[9:11])
     second = int(timestamp[11:13])
-    dt_utc = datetime(year, 1, 1) + timedelta(days=day_of_year - 1, hours=hour, minutes=minute, seconds=second)
+    dt_utc = datetime(year, 1, 1) + timedelta(
+        days=day_of_year - 1, hours=hour, minutes=minute, seconds=second
+    )
     dt_utc = pytz.utc.localize(dt_utc)
-    est = pytz.timezone('US/Eastern')
+    est = pytz.timezone("US/Eastern")
     dt_est = dt_utc.astimezone(est)
-    return dt_est.strftime('%Y-%m-%d %H:%M:%S')
+    return dt_est.strftime("%Y-%m-%d %H:%M:%S")
+
 
 png_folder = "converted_to_pngs"
 
@@ -83,4 +90,6 @@ if st.session_state["png_files"]:
         if st.session_state["change_analysis"] != "":
             st.write(st.session_state["change_analysis"])
         else:
-            st.session_state["change_analysis"] = analyze_change(model_name=st.session_state["model_name"])
+            st.session_state["change_analysis"] = analyze_change(
+                model_name=st.session_state["model_name"]
+            )

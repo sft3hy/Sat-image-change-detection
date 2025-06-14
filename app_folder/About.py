@@ -1,6 +1,7 @@
 import streamlit as st
 
-st.markdown("""
+st.markdown(
+    """
 # Satellite Imagery Change Detection Workflow
 ## About the developer
             
@@ -58,7 +59,7 @@ Performs change detection on composite images using a pretrained large language 
   - Sends the image to a language model for descriptive analysis of detected changes.
   - Provides insights into cloud cover, object movement, and other environmental changes.
 
-- **Core Function:** `analyze_change(model_name="llama-3.2-11b-vision-preview")`
+- **Core Function:** `analyze_change(model_name="meta-llama/llama-4-scout-17b-16e-instruct")`
 
 ---
 
@@ -96,6 +97,5 @@ A Streamlit-based user interface that integrates the above components into a coh
    streamlit run st.py
 
 
-""")
-
-
+"""
+)
