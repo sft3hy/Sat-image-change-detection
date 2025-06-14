@@ -28,7 +28,7 @@ with st.sidebar:
         "Vision model for image comparison:",
         options=[
             "meta-llama/llama-4-scout-17b-16e-instruct",
-            "llama-3.2-90b-vision-preview",
+            "meta-llama/llama-4-maverick-17b-128e-instruct",
         ],
         index=0,
     )
